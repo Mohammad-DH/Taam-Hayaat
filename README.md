@@ -1,3 +1,3 @@
-### 1 git clone
-### 2 npm install
-### 3 npm start
+### 1_ git clone
+### 2_ npm install
+### 3_ npm start

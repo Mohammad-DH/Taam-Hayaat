@@ -2,10 +2,12 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { root } from "../../context/API";
+import Footer from "../Footer";
+import Language from "../Language";
 import Card from "./components/Card";
 
 function Shop() {
-  const { cats, SETcats } = useContext(root);
+  const { cats, SETcats, lan } = useContext(root);
   const [products, setproducts] = useState(null);
   let { id } = useParams();
 
@@ -30,34 +32,44 @@ function Shop() {
 
   return (
     <div className="shop">
-      <div className="filter">
-        {cats
-          ? cats.map((e) => {
-              return (
-                <div className="shop-cat">
-                  <a href={`/shop/${e.id}`}>{e.label}</a>
-                </div>
-              );
-            })
-          : ""}
+      <div className="shop-content">
+        <div className={lan === "AR" ? "filter" : "filter filter_EN"}>
+          <div className="filter-lan">
+            <Language />
+          </div>
+          {cats
+            ? cats.map((e) => {
+                return (
+                  <div className="shop-cat">
+                    <a href={`/shop/${e.id}`}>
+                      {lan === "AR" ? e.label_ar : e.label}
+                    </a>
+                  </div>
+                );
+              })
+            : ""}
+        </div>
+        <div className="list">
+          {products
+            ? products.map((e) => {
+                return <Card catID={id} data={e} />;
+              })
+            : ""}
+        </div>
       </div>
-      <div className="list">
-        {products
-          ? products.map((e) => {
-              return <Card catID={id} data={e} />;
-            })
-          : ""}
-      </div>
+      <Footer />
       <style jsx>{`
         .shop {
           width: 100%;
           min-height: 100vh;
+          background-image: url("../../../bg1.png");
+        }
+        .shop-content {
           display: flex;
           align-items: flex-start;
           justify-content: space-evenly;
           padding-top: 1rem;
           padding-bottom: 1rem;
-          background-image: url("../../../bg1.png");
         }
         .filter {
           margin-top: 2%;
@@ -73,6 +85,13 @@ function Shop() {
           flex-direction: column;
           align-items: flex-end;
           justify-content: space-evenly;
+        }
+        .filter_EN {
+          text-align: left;
+          align-items: flex-start;
+        }
+        .filter-lan {
+          margin-bottom: 10%;
         }
         .filter a {
           color: black;

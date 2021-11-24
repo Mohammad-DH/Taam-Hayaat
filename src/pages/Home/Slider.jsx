@@ -5,7 +5,7 @@ import Tilt from "react-parallax-tilt";
 import { root } from "../../context/API";
 
 function SlidePage() {
-  const { cats } = useContext(root);
+  const { cats, lan } = useContext(root);
   const [last, setlast] = useState(0);
   const [number, setnumber] = useState(0);
 
@@ -99,12 +99,18 @@ function SlidePage() {
           <div className="slider-info">
             <img className="border border-r" src="./border.png" alt="" />
             <img className="border border-l" src="./border.png" alt="" />
-            {cats ? <h3 className="info-title">{cats[number].label}</h3> : ""}
+            {cats ? (
+              <h3 className="info-title">
+                {lan === "AR" ? cats[number].label_ar : cats[number].label}
+              </h3>
+            ) : (
+              ""
+            )}
             <Link
               to={cats ? `/shop/${cats[number].id}` : ""}
               className="info-btn"
             >
-              اظهار الكل
+              {lan === "AR" ? "اظهار الكل" : "see all"}
             </Link>
           </div>
         </div>
@@ -195,6 +201,7 @@ function SlidePage() {
         .info-title {
           width: fit-content;
           font-size: 8rem;
+          text-transform: capitalize;
         }
         .info-btn {
           position: absolute;

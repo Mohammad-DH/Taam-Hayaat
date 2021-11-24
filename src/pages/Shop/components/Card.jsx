@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { root } from "../../../context/API";
 
 function Card({ catID, data }) {
-  let { id, producticon, title } = data;
+  const { lan } = useContext(root);
+  let { id, producticon, title, title_ar } = data;
   return (
     <Link style={{ textDecoration: "none" }} to={`/detaile/${catID}/${id}`}>
       <div className="shop-card">
         <img className="shop-card-image" src={producticon.icon} alt="" />
-        <h4 className="shop-card-title">{title}</h4>
+        <h4 className="shop-card-title">{lan === "AR" ? title_ar : title}</h4>
         <style jsx>{`
           .shop-card {
             width: 14vw;

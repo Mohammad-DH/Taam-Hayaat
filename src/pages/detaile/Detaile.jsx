@@ -1,7 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { root } from "../../context/API";
+import Language from "../Language";
+import Footer from "../Footer";
+
 function Detaile() {
+  const { lan } = useContext(root);
+
   const [data, setdata] = useState(null);
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
@@ -49,89 +55,120 @@ function Detaile() {
 
   return (
     <div className="Detaile">
-      <div className="product-images">
-        {data
-          ? data.image_set.map((e) => {
-              return (
-                <div className="image-box">
-                  <img className="detaile-image" src={e.image} alt="" />
-                </div>
-              );
-            })
-          : ""}
-        <div className="detail-form">
-          <div className="inner-form">
-            <div className="form1">
+      <div className="detaile-content">
+        <div className="product-images">
+          {data
+            ? data.image_set.map((e) => {
+                return (
+                  <div className="image-box">
+                    <img className="detaile-image" src={e.image} alt="" />
+                  </div>
+                );
+              })
+            : ""}
+          <div className="detail-form">
+            <div
+              className={
+                lan === "AR" ? "inner-form" : "inner-form inner-form_EN"
+              }
+            >
+              <div className="form1">
+                <input
+                  value={name}
+                  onChange={(e) => setname(e.target.value)}
+                  placeholder={lan === "AR" ? "اسم" : "name"}
+                  type="text"
+                />
+                <input
+                  value={email}
+                  onChange={(e) => setemail(e.target.value)}
+                  placeholder={lan === "AR" ? "البريد الإلكتروني" : "email"}
+                  type="email"
+                />
+              </div>
               <input
                 value={name}
                 onChange={(e) => setname(e.target.value)}
-                placeholder="اسم"
+                className="form2"
+                placeholder={lan === "AR" ? "اسم" : "name"}
                 type="text"
               />
               <input
                 value={email}
                 onChange={(e) => setemail(e.target.value)}
-                placeholder="البريد الإلكتروني"
+                className="form2"
+                placeholder={lan === "AR" ? "البريد الإلكتروني" : "email"}
                 type="email"
               />
-            </div>
-            <input
-              value={name}
-              onChange={(e) => setname(e.target.value)}
-              className="form2"
-              placeholder="اسم "
-              type="text"
-            />
-            <input
-              value={email}
-              onChange={(e) => setemail(e.target.value)}
-              className="form2"
-              placeholder="البريد الإلكتروني "
-              type="email"
-            />
 
-            <input
-              value={phone}
-              onChange={(e) => setphone(e.target.value)}
-              placeholder="رقم الهاتف"
-              className=""
-              type="tel"
-            />
-            <textarea
-              value={note}
-              onChange={(e) => setnote(e.target.value)}
-              placeholder="رسالة"
-              maxLength="5000"
-              className="detail-message"
-              cols="30"
-              rows="10"
-            ></textarea>
-            <span className="send">إرسال</span>
+              <input
+                value={phone}
+                onChange={(e) => setphone(e.target.value)}
+                placeholder={lan === "AR" ? "رقم الهاتف" : "phone number"}
+                className=""
+                type="tel"
+              />
+              <textarea
+                value={note}
+                onChange={(e) => setnote(e.target.value)}
+                placeholder={lan === "AR" ? "رسالة" : "message"}
+                maxLength="5000"
+                className={
+                  lan === "AR"
+                    ? "detail-message"
+                    : "detail-message detail-message_EN"
+                }
+                cols="30"
+                rows="10"
+              ></textarea>
+              <span onClick={send} className="send">
+                {lan === "AR" ? "إرسال" : "send"}
+              </span>
+            </div>
           </div>
         </div>
-      </div>
-      <div onClick={send} className="product-info">
-        <div className="inner-info">
-          <h1>{data ? data.title : ""}</h1>
-          <p className="info-intro">{data ? data.intro : ""}</p>
-          <div className="info-description">
-            <p>{data ? data.description : ""}</p>
-          </div>
-          <br />
-          <span
-            onClick={() => scroll("detail-form")}
-            className="product-info-btn"
+        <div className="product-info">
+          <div
+            className={lan === "AR" ? "inner-info" : "inner-info inner-info_EN"}
           >
-            إرسال رسالة
-          </span>
+            <Language />
+            <h1>{data ? (lan === "AR" ? data.title_ar : data.title) : ""}</h1>
+            <p className="info-intro">
+              {data ? (lan === "AR" ? data.intro_ar : data.intro) : ""}
+            </p>
+            <div className="info-description">
+              <p>
+                {data
+                  ? lan === "AR"
+                    ? data.description_ar
+                    : data.description
+                  : ""}
+              </p>
+            </div>
+            <br />
+            <span
+              onClick={() => scroll("detail-form")}
+              className="product-info-btn"
+            >
+              {lan === "AR" ? "إرسال رسالة" : "contact"}
+            </span>
+          </div>
         </div>
       </div>
+
       <style jsx>{`
         .Detaile {
+          background-image: url("../../bg1.png");
+        }
+        .detaile-content {
           display: flex;
           align-items: flex-start;
           justify-content: space-evenly;
-          background-image: url("../../bg1.png");
+        }
+        .detaile-footer {
+          position: absolute;
+          bottom: 0;
+          left: 0;
         }
         .product-images {
           width: 70%;
@@ -160,8 +197,8 @@ function Detaile() {
         .detail-form {
           width: 95%;
           height: 60vh;
-          background-color: rgba(255, 252, 212, 0.8);
-          border-radius: 1rem;
+          background-color: rgba(255, 255, 255);
+          border-radius: 1rem 5rem 1rem 5rem;
           display: flex;
           align-items: flex-start;
           justify-content: center;
@@ -178,10 +215,13 @@ function Detaile() {
           width: 20vw;
           height: 2vw;
           border-radius: 50vw;
-          border: 1px solid rgb(0, 110, 255);
+          border: 2px solid rgb(0, 110, 255);
           padding: 1rem;
           font-size: 1.6rem;
           text-align: right;
+        }
+        .inner-form_EN input {
+          text-align: left;
         }
         .form1 {
           width: 100%;
@@ -199,9 +239,12 @@ function Detaile() {
           resize: none;
           border: none;
           padding: 1rem;
-          border: 1px solid rgb(0, 110, 255);
+          border: 2px solid rgb(0, 110, 255);
           font-size: 1.6rem;
           text-align: right;
+        }
+        .detail-message_EN {
+          text-align: left;
         }
         .send {
           width: 12vw;
@@ -245,6 +288,12 @@ function Detaile() {
           align-items: flex-end;
           justify-content: space-between;
         }
+        .inner-info h1 {
+          width: 100%;
+        }
+        .inner-info_EN {
+          text-align: left;
+        }
         .info-intro {
           font-size: 1.4rem;
         }
@@ -267,6 +316,7 @@ function Detaile() {
           text-align: center;
           cursor: pointer;
           transition: all 0.2s linear;
+          margin-top: 0.5rem;
         }
         .product-info-btn:hover {
           background-color: rgba(255, 255, 255, 0.4);

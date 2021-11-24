@@ -6,8 +6,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100vw;
-  background-color: #A3DF7A;
+  background-color: rgb(163, 223, 124);
+  background-color: #43a457;
+
   overflow-x: hidden;
+  font-family: "Nunito";
 }
 
 @font-face {

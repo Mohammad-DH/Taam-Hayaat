@@ -1,8 +1,13 @@
 import React, { useEffect } from "react";
 import Certification from "./components/sec1/Certification";
 import gsap from "gsap";
+import { root } from "../../context/API";
+import { useContext } from "react";
+import Language from "../Language";
 
 function Sec1() {
+  const { lan } = useContext(root);
+
   useEffect(() => {
     let tl = gsap.timeline();
     tl.to(".logo", { duration: 1, top: "20%" });
@@ -19,6 +24,7 @@ function Sec1() {
     var element = document.querySelector(`.${adress}`);
     element.scrollIntoView({ behavior: "smooth", block: "end" });
   };
+
   return (
     <div className="Sec1">
       <div className="Header">
@@ -26,6 +32,7 @@ function Sec1() {
           <img className="logo" src="./logo.png" alt="" />
         </div>
         <div className="header-items">
+          <Language />
           <span onClick={() => scroll("SlidePage")}>category</span>
           <span onClick={() => scroll("about")}>about us</span>
           <span onClick={() => scroll("blog")}>blog</span>
@@ -34,12 +41,11 @@ function Sec1() {
         <style jsx>{`
           .Header {
             width: 100%;
-
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: white;
-            padding-bottom: 10px;
+            background-color: rgb(253, 252, 241);
+            padding: 15px 0;
           }
           .logo-box {
             width: 20%;
@@ -57,9 +63,11 @@ function Sec1() {
             flex-direction: row-reverse;
             align-items: center;
             justify-content: space-evenly;
+            margin-right: 2%;
           }
           .header-items span {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
+            font-weight: 600;
             cursor: pointer;
             opacity: 0.7;
             transition: 0.2s all linear;
@@ -86,7 +94,11 @@ function Sec1() {
         `}</style>
       </div>
       <div className="Sec1-content">
-        <img className="title" src="./title.png" alt="" />
+        {lan === "AR" ? (
+          <span>الجودة والكمية في مكان واحد</span>
+        ) : (
+          <img className="title" src="./title.png" alt="" />
+        )}
 
         <div className="Certification-list">
           <Certification url={"./halal.png"} />
@@ -105,6 +117,8 @@ function Sec1() {
           flex-direction: column;
           align-items: center;
           justify-content: space-evenly;
+          font-size: 8rem;
+          color: white;
         }
         .title {
           width: 60%;

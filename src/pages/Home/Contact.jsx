@@ -1,7 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useContext } from "react";
+import { root } from "../../context/API";
 
 function Contact() {
+  const { lan } = useContext(root);
+
   const [name, setname] = useState("");
   const [email, setemail] = useState("");
   const [phone, setphone] = useState("");
@@ -37,43 +41,34 @@ function Contact() {
           <input
             value={name}
             onChange={(e) => setname(e.target.value)}
-            placeholder="اسم"
+            placeholder={lan === "AR" ? "اسم" : "name"}
             type="text"
           />
           <input
             value={email}
             onChange={(e) => setemail(e.target.value)}
-            placeholder="البريد الإلكتروني"
+            placeholder={lan === "AR" ? "البريد الإلكتروني" : "email"}
             type="email"
           />
           <input
             value={phone}
             onChange={(e) => setphone(e.target.value)}
-            placeholder="رقم الهاتف"
+            placeholder={lan === "AR" ? "رقم الهاتف" : "phone number"}
             className=""
             type="tel"
           />
           <textarea
             value={note}
             onChange={(e) => setnote(e.target.value)}
-            placeholder="رسالة"
+            placeholder={lan === "AR" ? "رسالة" : "message"}
             maxLength="5000"
             className="message"
             cols="30"
             rows="10"
           ></textarea>
           <span onClick={send} className="send">
-            إرسال
+            {lan === "AR" ? "إرسال" : "send"}
           </span>
-        </div>
-        <div className="detail">
-          <a href="mailto: taamhayat@gmail.com">email : taamhayat@gmail.com</a>
-
-          <br />
-          <span>phone : +989162821510</span>
-          <br />
-          <span>adress : iran , tehran </span>
-          <br />
         </div>
       </div>
 
@@ -94,19 +89,19 @@ function Contact() {
         }
         .inner {
           width: 28%;
-          height: 97vh;
+          height: 80vh;
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: space-between;
           border: 2px solid white;
-          border-radius: 1rem;
-          background-color: rgba(255, 252, 212, 0.8);
+          border-radius: 0.5rem 7rem 0.5rem 7rem;
+          background-color: rgba(255, 255, 255);
           z-index: 10;
         }
         .form {
           width: 100%;
-          height: 70%;
+          height: 100%;
           display: flex;
           flex-direction: column;
           align-items: center;
@@ -119,7 +114,7 @@ function Contact() {
           border-radius: 500vh;
           padding: 0rem 1rem;
           font-size: 1.6rem;
-          border: 1px solid rgb(0, 110, 255);
+          border: 2px solid rgb(0, 110, 255);
           text-align: right;
         }
         .message {
@@ -131,7 +126,7 @@ function Contact() {
           scrollbar-width: none;
           padding: 1rem;
           resize: none;
-          border: 1px solid rgb(0, 110, 255);
+          border: 2px solid rgb(0, 110, 255);
           text-align: right;
         }
         .send {
@@ -152,20 +147,6 @@ function Contact() {
         .send:hover {
           background-color: rgb(0, 255, 136);
           color: white;
-        }
-        .detail {
-          font-family: "Nunito";
-          height: 30%;
-          font-size: 1.5rem;
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: space-evenly;
-        }
-        .detail a {
-          color: black;
-          text-decoration: none;
         }
         @media only screen and (max-width: 600px) {
           .contact-flower {

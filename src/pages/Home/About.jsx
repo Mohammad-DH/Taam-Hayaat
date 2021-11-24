@@ -1,29 +1,44 @@
 import React from "react";
+import { useContext } from "react";
+import { root } from "../../context/API";
 
 function About() {
+  const { lan } = useContext(root);
   return (
-    <div className="about">
+    <div className={lan === "AR" ? "about" : "about about_EN"}>
       <div className="about-image-box">
         <img className="about-image-frame" src="./frame.png" alt="" />
         <img className="about-image" src="./persone.jpg" alt="" />
       </div>
-      <div className="about-text">
+      <div className="about-text ">
         <img className="about-div top-div" src="div.png" alt="" />
-        <p>
-          التي وصغار واستمر لان ما, و الثالث اليابانية أخذ, زهاء بقعة السادس من
-          الى. في دول مساعدة النزاع, فقد عُقر عملية طوكيو عل. ثم اللا انذار
-          الإقتصادي فقد, الهادي تكاليف دول و. ذات معارضة الأبرياء في, أي جيوب
-          والحزب قام. به، تحرير الشطر تم, هُزم وقامت وهولندا، أخذ كل. الإنزال
-          إستيلاء المتاخمة حدى هو, لها زهاء فبعد بـ. قد دول إعلان الشرقي. بين
-          دخول بالحرب ثم. بحث ما أملاً اقتصادية. كان دأبوا الحكم إذ. لمّ هاربر
-          أوروبا أم, إجلاء بمعارضة ما ولم, حصدت ألمانيا جهة أم. ومضى كثيرة
-          المتّبعة أم أسر. فرنسية الخطّة استراليا، ثم دون, استدعى الثانية وقد
-          أن, بـ مساعدة الجنوب وقدّموا قام. بـ نقطة الإمداد الدولارات ومن, وزارة
-          إيطاليا لمّ مع. إذ به، شعار السيء الشرقية, فعل هو تسمّى الأرض العالم,
-          كانت وبلجيكا، التبرعات قبل كل. وقد ٣٠ بمحاولة والنفيس, أن جُل اسبوعين
-          الشتاء،. بل ضرب والتي ويتّفق, ان عدم عجّل أوسع واُسدل. بفرض مشروط
-          اتّجة بـ حدى. مارد يتعلّق لإنعدام عن جعل.
-        </p>
+        {lan === "AR" ? (
+          <p>
+            التي وصغار واستمر لان ما, و الثالث اليابانية أخذ, زهاء بقعة السادس
+            من الى. في دول مساعدة النزاع, فقد عُقر عملية طوكيو عل. ثم اللا انذار
+            الإقتصادي فقد, الهادي تكاليف دول و. ذات معارضة الأبرياء في, أي جيوب
+            والحزب قام. به، تحرير الشطر تم, هُزم وقامت وهولندا، أخذ كل. الإنزال
+            إستيلاء المتاخمة حدى هو, لها زهاء فبعد بـ. قد دول إعلان الشرقي. بين
+            دخول بالحرب ثم. بحث ما أملاً اقتصادية. كان دأبوا الحكم إذ. لمّ هاربر
+            أوروبا أم, إجلاء بمعارضة ما ولم, حصدت ألمانيا جهة أم. ومضى كثيرة
+            المتّبعة أم أسر. فرنسية الخطّة استراليا، ثم دون, استدعى الثانية وقد
+            أن, بـ مساعدة الجنوب وقدّموا قام. بـ نقطة الإمداد الدولارات ومن,
+            وزارة إيطاليا لمّ مع. إذ به، شعار السيء الشرقية, فعل هو تسمّى الأرض
+            العالم, كانت وبلجيكا، التبرعات قبل كل. وقد ٣٠ بمحاولة والنفيس, أن
+            جُل اسبوعين الشتاء،. بل ضرب والتي ويتّفق, ان عدم عجّل أوسع واُسدل.
+            بفرض مشروط اتّجة بـ حدى. مارد يتعلّق لإنعدام عن جعل.
+          </p>
+        ) : (
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
+            ducimus deleniti expedita tenetur. Consequuntur dolorum dolorem
+            reiciendis fuga, quod error velit iusto ipsa laborum sit. Sed
+            quaerat ad expedita eum dicta obcaecati iste est veniam animi! Eaque
+            distinctio deserunt et ex, quia vero sunt! Impedit, fugit! Maxime
+            beatae, aperiam cupiditate praesentium necessitatibus accusamus
+            quam? Molestias neque nisi consequatur illo eum?
+          </p>
+        )}
         <img className="about-div bot-div" src="div.png" alt="" />
       </div>
 
@@ -33,6 +48,9 @@ function About() {
           height: 100vh;
           display: flex;
           align-items: center;
+        }
+        .about_EN {
+          flex-direction: row-reverse;
         }
         .about-image-box {
           position: relative;
@@ -54,7 +72,7 @@ function About() {
           width: 65%;
           background-color: rgba(255, 252, 212, 0.8);
           font-size: 1.6rem;
-          text-align: right;
+          text-align: center;
           line-height: 170%;
           overflow-y: hidden;
           display: flex;

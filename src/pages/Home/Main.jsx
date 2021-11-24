@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 
 import axios from "axios";
 
+import Footer from "../Footer";
 import Sec1 from "./Sec1";
 import SlidePage from "./Slider";
 import About from "./About";
@@ -29,27 +30,10 @@ function Main() {
       <About />
       <Blog />
       <Contact />
-      <div className="madeby">
-        <a
-          href="https://www.mohammaddh.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Front end made by MohammadDH
-        </a>
-      </div>
+      <Footer />
       <style jsx>{`
         .Main {
           overflow-x: hidden;
-        }
-        .madeby {
-          height: 1vh;
-          padding: 1% 0;
-          margin-left: 1%;
-        }
-        .madeby a {
-          color: rgb(250, 250, 250);
-          text-decoration: none;
         }
       `}</style>
     </div>
